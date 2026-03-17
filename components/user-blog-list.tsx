@@ -55,64 +55,71 @@ export function UserBlogList({ blogs: initialBlogs }: UserBlogListProps) {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
           >
-            <Card className="h-full group hover:shadow-xl hover:-translate-y-2 transition-all p-2 rounded-3xl border-muted/30">
-              <CardHeader className="p-6 relative">
-                <div className="flex flex-wrap gap-2 mb-4">
+            <Card className="h-full grow flex flex-col justify-between overflow-hidden border-muted/30 bg-background/50 backdrop-blur-3xl hover:bg-background/95 hover:border-primary/30 hover:shadow-[0_40px_80px_-15px_rgba(var(--primary-rgb),0.15)] transition-all duration-500 rounded-[2.5rem] p-8 border-[1.5px] relative group">
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-wrap gap-2.5">
                   {blog.tags.map((tag: any) => (
-                    <Badge key={tag.name} variant="secondary" className="bg-primary/5 text-primary text-[10px] uppercase font-bold tracking-widest px-2 py-0.5">
-                      {tag.name}
-                    </Badge>
+                    <span 
+                      key={tag.name} 
+                      className="px-4 py-1.5 text-[10px] font-bold tracking-tight bg-primary/10 text-primary rounded-xl border border-primary/10 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-transparent transition-all duration-300"
+                    >
+                      {tag.name.charAt(0).toUpperCase() + tag.name.slice(1)}
+                    </span>
                   ))}
                 </div>
-                <CardTitle className="leading-tight text-xl mb-2 line-clamp-2">{blog.title}</CardTitle>
-                <div className="flex items-center text-xs text-muted-foreground gap-2">
-                  <Calendar className="h-3 w-3" />
-                  {format(new Date(blog.createdAt), "MMM dd, yyyy")}
+
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-black leading-tight tracking-tight group-hover:text-primary transition-colors duration-300 first-letter:uppercase">
+                    {blog.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 font-medium opacity-75 group-hover:opacity-100 transition-opacity">
+                    {blog.content.substring(0, 100)}...
+                  </p>
+                  <div className="flex items-center text-[11px] text-muted-foreground font-semibold opacity-50 gap-2 uppercase tracking-widest">
+                    <Calendar className="h-3 w-3" />
+                    {format(new Date(blog.createdAt), "MMM dd, yyyy")}
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed h-10">
-                  {blog.content.substring(0, 100)}...
-                </p>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 flex gap-4 mt-auto">
+              </div>
+
+              <div className="mt-8 pt-8 flex items-center gap-4 border-t border-muted/10">
                 <Link 
                   href={`/blog/${blog.id}`} 
-                  className={cn(buttonVariants({ variant: "ghost" }), "flex-1 rounded-2xl h-10 hover:bg-primary/5 hover:text-primary border border-primary/10")}
+                  className={cn(buttonVariants({ variant: "outline" }), "grow h-12 rounded-2xl font-black border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all duration-300")}
                 >
                   View post
                 </Link>
                 
                 <Dialog>
                   <DialogTrigger>
-                    <Button variant="ghost" className="rounded-2xl h-10 w-10 p-0 text-destructive hover:bg-destructive/10 hover:text-destructive border border-destructive/10">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="h-12 w-12 rounded-2xl flex items-center justify-center text-destructive bg-destructive/5 border border-destructive/10 hover:bg-destructive hover:text-white transition-all duration-300 cursor-pointer group/delete">
+                      <Trash2 className="h-5 w-5" strokeWidth={2.5} />
+                    </div>
                   </DialogTrigger>
-                  <DialogContent className="rounded-3xl max-w-[400px]">
-                    <DialogHeader className="p-4">
-                      <DialogTitle className="text-2xl font-black mb-2">Delete blog?</DialogTitle>
-                      <DialogDescription className="text-muted-foreground">
+                  <DialogContent className="rounded-[2.5rem] p-8 border-muted/30 bg-background/95 backdrop-blur-3xl shadow-2xl">
+                    <DialogHeader className="mb-6">
+                      <DialogTitle className="text-3xl font-black tracking-tight mb-2">Delete blog?</DialogTitle>
+                      <DialogDescription className="text-base text-muted-foreground font-medium">
                         This action cannot be undone. This will permanently delete your
                         blog post and remove it from our servers.
                       </DialogDescription>
                     </DialogHeader>
-                    <DialogFooter className="flex flex-col sm:flex-row gap-2">
-                      <Button variant="ghost" className="rounded-full px-8 h-12 flex-1">
+                    <DialogFooter className="flex flex-col sm:flex-row gap-3">
+                      <Button variant="ghost" className="rounded-2xl px-8 h-12 flex-1 font-bold border border-muted/20">
                         Cancel
                       </Button>
                       <Button
                         variant="destructive"
                         onClick={() => handleDelete(blog.id)}
                         disabled={deletingId === blog.id}
-                        className="rounded-full px-8 h-12 flex-1"
+                        className="rounded-2xl px-8 h-12 flex-1 font-bold shadow-lg shadow-destructive/20"
                       >
-                        {deletingId === blog.id ? "Deleting..." : "Confirm Delete"}
+                        {deletingId === blog.id ? "Deleting..." : "Confirm delete"}
                       </Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
-              </CardFooter>
+              </div>
             </Card>
           </motion.div>
         ))}
