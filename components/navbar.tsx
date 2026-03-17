@@ -72,7 +72,7 @@ export function Navbar() {
               onClick={() => signIn("google")} 
               className="rounded-full px-5 font-bold"
             >
-              Get Started
+              Get started
             </Button>
           )}
         </div>

@@ -18,7 +18,7 @@ export function AnimatedBackground() {
   }, []);
 
   const particlesColor = useMemo(() => {
-    return resolvedTheme === "dark" ? "#ffffff" : "#4A6CF7"; // Primary-ish blue
+    return resolvedTheme === "dark" ? "#ffffff" : "#4f46e5"; // Indigo 600
   }, [resolvedTheme]);
 
   const options = useMemo(
@@ -76,7 +76,7 @@ export function AnimatedBackground() {
           value: 80,
         },
         opacity: {
-          value: 0.2,
+          value: resolvedTheme === "dark" ? 0.3 : 0.25,
         },
         shape: {
           type: "circle",

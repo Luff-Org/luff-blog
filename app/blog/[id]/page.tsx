@@ -33,7 +33,7 @@ export default async function BlogDetailPage({
           Back to home
         </Link>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-8 leading-[1.1]">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-8 leading-[1.1] first-letter:uppercase">
           {blog.title}
         </h1>
 
@@ -52,12 +52,12 @@ export default async function BlogDetailPage({
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap gap-3 mb-10">
           {blog.tags.map((tag) => (
-            <Link key={tag.name} href={`/?tag=${tag.name}`}>
-              <Badge variant="secondary" className="px-3 py-1 text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 rounded-lg hover:bg-primary/20 transition-all cursor-pointer">
-                #{tag.name}
-              </Badge>
+            <Link key={tag.name} href={`/?tag=${tag.name}`} className="group/tag">
+              <span className="px-4 py-1.5 text-[10px] font-bold tracking-tight bg-primary/10 text-primary rounded-xl border border-primary/10 group-hover/tag:bg-primary group-hover/tag:text-primary-foreground group-hover/tag:border-transparent transition-all duration-300 inline-block">
+                {tag.name.charAt(0).toUpperCase() + tag.name.slice(1)}
+              </span>
             </Link>
           ))}
         </div>

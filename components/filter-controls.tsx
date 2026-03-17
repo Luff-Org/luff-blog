@@ -43,7 +43,7 @@ export function FilterControls() {
   const currentSort = searchParams.get("sort") || "latest";
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 mb-14 items-center justify-between w-full">
+    <div className="flex flex-col lg:flex-row gap-4 items-center justify-between w-full">
       <div className="relative grow w-full lg:max-w-3xl">
         <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground opacity-50" />
         <Input
@@ -58,7 +58,9 @@ export function FilterControls() {
       <div className="flex flex-col sm:flex-row gap-4 items-center w-full lg:w-auto h-full">
         <Select value={currentSort} onValueChange={handleSortChange}>
           <SelectTrigger className="w-full sm:w-[220px] h-14 rounded-2xl border-muted/20 bg-muted/10 px-6 font-semibold transition-all hover:bg-muted/20">
-            <SelectValue placeholder="Sort by" />
+            <SelectValue placeholder="Sort by">
+              {currentSort === "latest" ? "Latest first" : "Oldest first"}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="rounded-2xl border-muted/20 shadow-2xl">
             <SelectItem value="latest">Latest first</SelectItem>

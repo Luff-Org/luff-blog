@@ -27,7 +27,7 @@ export default async function HomePage({
       <section className="max-w-7xl mx-auto mt-16 px-4">
         <div className="flex flex-col xl:flex-row items-center justify-between gap-10 mb-16 border-b border-muted/20 pb-12">
           <div className="text-center xl:text-left shrink-0">
-            <h2 className="text-4xl font-black tracking-tight mb-2">Latest Updates</h2>
+            <h2 className="text-4xl font-black tracking-tight mb-2">Latest updates</h2>
             <p className="text-muted-foreground font-medium opacity-60">High-signal articles curated for you</p>
           </div>
           <div className="w-full xl:max-w-5xl">
