@@ -33,7 +33,7 @@ export async function createBlog(formData: FormData) {
   });
 
   revalidatePath("/");
-  redirect("/");
+  return { success: true };
 }
 
 export async function deleteBlog(blogId: string) {

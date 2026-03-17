@@ -58,7 +58,7 @@ export function Navbar() {
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="rounded-lg text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer font-medium"
-                    onSelect={() => signOut()}
+                    onClick={() => signOut()}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     Logout
