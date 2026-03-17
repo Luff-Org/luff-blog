@@ -62,16 +62,3 @@ npx prisma db push
 ```bash
 npm run dev
 ```
-
-## Deployment
-
-Deploy easily to **Vercel**:
-
-1.  Push your code to GitHub.
-2.  Connect your repository to Vercel.
-3.  Add the environment variables in the Vercel dashboard.
-4.  Deploy!
-
----
-
-Built with ❤️ by Antigravity
