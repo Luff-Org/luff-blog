@@ -43,33 +43,37 @@ export function FilterControls() {
   const currentSort = searchParams.get("sort") || "latest";
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
-      <div className="relative w-full md:max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+    <div className="flex flex-col lg:flex-row gap-4 mb-14 items-center justify-between w-full">
+      <div className="relative grow w-full lg:max-w-3xl">
+        <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground opacity-50" />
         <Input
           key={currentQuery}
           placeholder="Search blogs..."
           defaultValue={currentQuery}
           onChange={(e) => handleSearch(e.target.value)}
-          className="pl-10 h-10 rounded-full bg-muted/30 focus-visible:bg-background transition-colors"
+          className="pl-14 h-14 text-base rounded-2xl bg-muted/10 border-muted/20 focus:border-primary/30 transition-all shadow-sm w-full"
         />
       </div>
       
-      <div className="flex flex-wrap gap-4 w-full md:w-auto items-center">
+      <div className="flex flex-col sm:flex-row gap-4 items-center w-full lg:w-auto h-full">
         <Select value={currentSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full sm:w-[220px] h-14 rounded-2xl border-muted/20 bg-muted/10 px-6 font-semibold transition-all hover:bg-muted/20">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="latest">Latest First</SelectItem>
-            <SelectItem value="oldest">Oldest First</SelectItem>
+          <SelectContent className="rounded-2xl border-muted/20 shadow-2xl">
+            <SelectItem value="latest">Latest first</SelectItem>
+            <SelectItem value="oldest">Oldest first</SelectItem>
           </SelectContent>
         </Select>
 
-        {(currentQuery || searchParams.get("tag") || currentSort !== "latest") && (
-          <Button variant="ghost" onClick={clearFilters} className="h-10">
+        {(currentQuery || searchParams.get("tag")) && (
+          <Button 
+            variant="ghost" 
+            onClick={clearFilters} 
+            className="h-14 rounded-2xl px-6 hover:bg-destructive/10 hover:text-destructive transition-all font-semibold border border-muted/10 hover:border-destructive/20 bg-muted/5 flex items-center justify-center whitespace-nowrap"
+          >
             <X className="h-4 w-4 mr-2" />
-            Clear
+            Clear filters
           </Button>
         )}
       </div>

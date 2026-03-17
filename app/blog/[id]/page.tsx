@@ -55,7 +55,7 @@ export default async function BlogDetailPage({
         <div className="flex flex-wrap gap-2 mb-10">
           {blog.tags.map((tag) => (
             <Link key={tag.name} href={`/?tag=${tag.name}`}>
-              <Badge variant="secondary" className="px-3 py-1 text-sm bg-muted-foreground/10 hover:bg-primary hover:text-primary-foreground transition-all cursor-pointer">
+              <Badge variant="secondary" className="px-3 py-1 text-[10px] font-bold bg-primary/5 text-primary border border-primary/10 rounded-lg hover:bg-primary/20 transition-all cursor-pointer">
                 #{tag.name}
               </Badge>
             </Link>

@@ -24,34 +24,38 @@ export default async function HomePage({
     <div className="container mx-auto px-6 pb-20">
       <HeroSection />
 
-      <section className="max-w-6xl mx-auto mt-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
-          <div className="text-center md:text-left">
-            <h2 className="text-2xl font-bold tracking-tight mb-1">Latest Updates</h2>
-            <p className="text-muted-foreground text-sm font-medium">Recently published articles</p>
+      <section className="max-w-7xl mx-auto mt-16 px-4">
+        <div className="flex flex-col xl:flex-row items-center justify-between gap-10 mb-16 border-b border-muted/20 pb-12">
+          <div className="text-center xl:text-left shrink-0">
+            <h2 className="text-4xl font-black tracking-tight mb-2">Latest Updates</h2>
+            <p className="text-muted-foreground font-medium opacity-60">High-signal articles curated for you</p>
           </div>
-          <FilterControls />
+          <div className="w-full xl:max-w-5xl">
+            <FilterControls />
+          </div>
         </div>
 
         {tag && (
           <div className="flex items-center gap-3 mb-8 animate-in fade-in slide-in-from-left-4 duration-500">
-            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Filtered:</span>
+            <span className="text-xs font-bold text-muted-foreground opacity-60">Filtered by:</span>
             <Badge className="px-3 py-1 bg-primary text-primary-foreground font-bold text-xs rounded-full">
               #{tag}
             </Badge>
-            <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-all">
-              Clear all
+            <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-all font-medium">
+              Clear filters
             </Link>
           </div>
         )}
 
         <Suspense fallback={<BlogGridSkeleton />}>
           {blogs.length === 0 ? (
-            <div className="text-center py-32 bg-muted/20 rounded-3xl border border-dashed border-muted/50">
-              <h3 className="text-2xl font-bold mb-2">No blogs found</h3>
-              <p className="text-muted-foreground mb-8">Try adjusting your filters or search query.</p>
-              <Link href="/create" className="inline-flex h-10 px-6 items-center bg-primary text-primary-foreground rounded-full font-bold text-sm">
-                Write something new
+            <div className="text-center py-32 bg-muted/10 rounded-[2rem] border border-dashed border-muted/50">
+              <h3 className="text-3xl font-black mb-4">Empty feed</h3>
+              <p className="text-muted-foreground mb-10 max-w-sm mx-auto font-medium opacity-60">
+                No high-signal updates found for this query.
+              </p>
+              <Link href="/create" className="inline-flex h-12 px-8 items-center bg-primary text-primary-foreground rounded-full font-bold text-sm hover:scale-105 transition-all shadow-xl shadow-primary/20">
+                Post new update
               </Link>
             </div>
           ) : (

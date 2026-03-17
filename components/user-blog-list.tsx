@@ -80,7 +80,7 @@ export function UserBlogList({ blogs: initialBlogs }: UserBlogListProps) {
                   href={`/blog/${blog.id}`} 
                   className={cn(buttonVariants({ variant: "ghost" }), "flex-1 rounded-2xl h-10 hover:bg-primary/5 hover:text-primary border border-primary/10")}
                 >
-                  View Post
+                  View post
                 </Link>
                 
                 <Dialog>

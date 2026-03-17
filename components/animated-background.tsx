@@ -18,7 +18,7 @@ export function AnimatedBackground() {
   }, []);
 
   const particlesColor = useMemo(() => {
-    return resolvedTheme === "dark" ? "#ffffff" : "#000000";
+    return resolvedTheme === "dark" ? "#ffffff" : "#4A6CF7"; // Primary-ish blue
   }, [resolvedTheme]);
 
   const options = useMemo(
@@ -90,7 +90,7 @@ export function AnimatedBackground() {
         enable: true,
         zIndex: -1,
       },
-    }),
+    }) as any,
     [particlesColor]
   );
 

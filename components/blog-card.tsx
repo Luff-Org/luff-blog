@@ -6,6 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 
 interface BlogCardProps {
   blog: {
@@ -26,46 +27,54 @@ interface BlogCardProps {
 export function BlogCard({ blog }: BlogCardProps) {
   return (
     <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ scale: 1.01, y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="h-full"
     >
-      <Link href={`/blog/${blog.id}`}>
-        <Card className="h-full flex flex-col justify-between overflow-hidden border-muted/50 bg-background/50 backdrop-blur-sm hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all rounded-2xl">
-          <div>
-            <CardHeader className="flex flex-row items-center gap-3 pb-4">
-              <Avatar className="h-7 w-7">
-                <AvatarImage src={blog.author.image || ""} />
-                <AvatarFallback>{blog.author.name?.[0] || "U"}</AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <p className="text-xs font-bold leading-none">{blog.author.name}</p>
-                <p className="text-[10px] text-muted-foreground mt-1">
-                  {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
-                </p>
-              </div>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <CardTitle className="mb-3 text-xl font-bold tracking-tight line-clamp-2">
-                {blog.title}
-              </CardTitle>
-              <div className="text-muted-foreground text-sm leading-relaxed line-clamp-3 font-medium">
-                {blog.content.substring(0, 150)}...
-              </div>
-            </CardContent>
-          </div>
-          <CardFooter className="pt-0 pb-6">
-            <div className="flex flex-wrap gap-2">
+      <Link href={`/blog/${blog.id}`} className="group h-full flex">
+        <Card className="h-full flex grow flex-col justify-between overflow-hidden border-muted/20 bg-background/30 backdrop-blur-2xl group-hover:bg-background/90 group-hover:border-primary/30 group-hover:shadow-[0_30px_60px_-12px_rgba(var(--primary-rgb),0.12)] transition-all duration-500 rounded-[2.5rem] p-8 border-[1.5px] relative">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-wrap gap-2.5">
               {blog.tags.map((tag) => (
-                <Badge 
+                <span 
                   key={tag.name} 
-                  variant="secondary" 
-                  className="px-2.5 py-0.5 text-[10px] font-bold bg-primary/5 text-primary border-none rounded-full"
+                  className="px-3.5 py-1 text-[10px] font-bold tracking-tight bg-primary/5 text-primary rounded-full border border-primary/10 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-transparent transition-all duration-300"
                 >
-                  #{tag.name}
-                </Badge>
+                  {tag.name}
+                </span>
               ))}
             </div>
-          </CardFooter>
+
+            <div className="space-y-4">
+              <h3 className="text-3xl font-black leading-tight tracking-tighter group-hover:text-primary transition-colors duration-300">
+                {blog.title}
+              </h3>
+              <p className="text-muted-foreground text-[15px] leading-relaxed line-clamp-3 font-medium opacity-70 group-hover:opacity-100 transition-opacity">
+                {blog.content.substring(0, 150)}...
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-8 flex items-center justify-between border-t border-muted/10">
+            <div className="flex items-center gap-3.5">
+              <Avatar className="h-9 w-9 ring-4 ring-primary/5 group-hover:ring-primary/20 transition-all duration-500">
+                <AvatarImage src={blog.author.image || ""} />
+                <AvatarFallback className="bg-primary/5 text-primary text-[10px] font-bold">
+                  {blog.author.name?.[0] || "U"}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-foreground/90">{blog.author.name}</span>
+                <span className="text-[10px] text-muted-foreground font-medium opacity-60">
+                  {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
+                </span>
+              </div>
+            </div>
+            
+            <div className="h-10 w-10 rounded-full bg-muted/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500 group-hover:rotate-45">
+              <ArrowUpRight className="h-5 w-5" strokeWidth={2.5} />
+            </div>
+          </div>
         </Card>
       </Link>
     </motion.div>

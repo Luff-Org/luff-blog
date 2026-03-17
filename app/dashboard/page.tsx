@@ -20,7 +20,7 @@ export default async function DashboardPage() {
     <div className="max-w-5xl mx-auto py-12">
       <header className="flex flex-col md:flex-row items-center justify-between gap-6 mb-16 border-b pb-12">
         <div className="text-center md:text-left">
-          <h1 className="text-4xl font-extrabold tracking-tight mb-2">My Dashboard</h1>
+          <h1 className="text-4xl font-extrabold tracking-tight mb-2">My dashboard</h1>
           <p className="text-xl text-muted-foreground">Manage your articles and see their status.</p>
         </div>
         <Link 
@@ -28,7 +28,7 @@ export default async function DashboardPage() {
           className={cn(buttonVariants({ size: "lg" }), "rounded-full px-8 h-12 group bg-primary hover:bg-primary/85 text-primary-foreground shadow-lg shadow-primary/20")}
         >
           <PlusCircle className="mr-2 h-4 w-4 transition-transform group-hover:rotate-90 duration-300" />
-          New Post
+          New post
         </Link>
       </header>
 
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
             href="/create"
             className={cn(buttonVariants({ variant: "outline" }), "rounded-full px-12 h-12 border-primary/20 hover:border-primary/50 text-primary")}
           >
-            Create Your First Blog
+            Create your first blog
           </Link>
         </div>
       ) : (
