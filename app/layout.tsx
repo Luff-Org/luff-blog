@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Providers } from "@/components/providers";
+import { Navbar } from "@/components/navbar";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "LuffBlog - Full-Stack Blog Platform",
+  description: "A modern blog platform built with Next.js, Auth.js, Prisma, and Neon.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} min-h-screen bg-background`}>
+        <Providers>
+          <Navbar />
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+        </Providers>
+      </body>
+    </html>
+  );
+}
