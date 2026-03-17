@@ -55,7 +55,7 @@ export function FilterControls() {
         />
       </div>
       
-      <div className="flex gap-4 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+      <div className="flex flex-wrap gap-4 w-full md:w-auto items-center">
         <Select value={currentSort} onValueChange={handleSortChange}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort by" />

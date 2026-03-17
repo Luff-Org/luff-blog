@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/navbar";
+import { AnimatedBackground } from "@/components/animated-background";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-outfit",
+});
 
 export const metadata: Metadata = {
-  title: "LuffBlog - Full-Stack Blog Platform",
-  description: "A modern blog platform built with Next.js, Auth.js, Prisma, and Neon.",
+  title: "Luff Blog",
+  description: "A premium full-stack blog platform.",
 };
 
 export default function RootLayout({
@@ -17,11 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen bg-background`}>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <body className={`${outfit.variable} font-sans min-h-screen bg-background text-foreground antialiased`}>
         <Providers>
+          <AnimatedBackground />
           <Navbar />
-          <main className="container mx-auto px-4 py-8">
+          <main className="relative z-10 pt-20">
             {children}
           </main>
         </Providers>

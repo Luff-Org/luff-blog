@@ -26,35 +26,41 @@ interface BlogCardProps {
 export function BlogCard({ blog }: BlogCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
       whileHover={{ y: -5 }}
+      transition={{ duration: 0.2 }}
     >
       <Link href={`/blog/${blog.id}`}>
-        <Card className="h-full flex flex-col hover:border-primary/50 transition-colors">
-          <CardHeader className="flex flex-row items-center gap-3 space-y-0">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={blog.author.image || ""} />
-              <AvatarFallback>{blog.author.name?.[0] || "U"}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <p className="text-sm font-medium leading-none">{blog.author.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
-              </p>
-            </div>
-          </CardHeader>
-          <CardContent className="grow">
-            <CardTitle className="mb-2 line-clamp-2">{blog.title}</CardTitle>
-            <p className="text-muted-foreground text-sm line-clamp-3">
-              {blog.content.substring(0, 150)}...
-            </p>
-          </CardContent>
-          <CardFooter>
+        <Card className="h-full flex flex-col justify-between overflow-hidden border-muted/50 bg-background/50 backdrop-blur-sm hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all rounded-2xl">
+          <div>
+            <CardHeader className="flex flex-row items-center gap-3 pb-4">
+              <Avatar className="h-7 w-7">
+                <AvatarImage src={blog.author.image || ""} />
+                <AvatarFallback>{blog.author.name?.[0] || "U"}</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col">
+                <p className="text-xs font-bold leading-none">{blog.author.name}</p>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
+                </p>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <CardTitle className="mb-3 text-xl font-bold tracking-tight line-clamp-2">
+                {blog.title}
+              </CardTitle>
+              <div className="text-muted-foreground text-sm leading-relaxed line-clamp-3 font-medium">
+                {blog.content.substring(0, 150)}...
+              </div>
+            </CardContent>
+          </div>
+          <CardFooter className="pt-0 pb-6">
             <div className="flex flex-wrap gap-2">
               {blog.tags.map((tag) => (
-                <Badge key={tag.name} variant="secondary" className="hover:bg-primary hover:text-primary-foreground">
+                <Badge 
+                  key={tag.name} 
+                  variant="secondary" 
+                  className="px-2.5 py-0.5 text-[10px] font-bold bg-primary/5 text-primary border-none rounded-full"
+                >
                   #{tag.name}
                 </Badge>
               ))}

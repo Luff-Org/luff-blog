@@ -5,6 +5,7 @@ import { FilterControls } from "@/components/filter-controls";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { HeroSection } from "@/components/hero-section";
 
 export default async function HomePage({
   searchParams,
@@ -20,69 +21,65 @@ export default async function HomePage({
   });
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-          Discover <span className="text-primary italic">Perspectives</span>
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
-          A space for clear thoughts and deep dives into technology, design, and life.
-        </p>
-      </header>
+    <div className="container mx-auto px-6 pb-20">
+      <HeroSection />
 
-      <FilterControls />
-
-      {tag && (
-        <div className="flex items-center gap-2 mb-6 animate-in fade-in slide-in-from-left-2 duration-300">
-          <span className="text-sm text-muted-foreground font-medium uppercase tracking-wider">Filtered by:</span>
-          <Badge variant="outline" className="px-3 py-1 bg-primary/5 text-primary border-primary/20">
-            #{tag}
-          </Badge>
-          <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-colors hover:underline">
-            Remove filter
-          </Link>
-        </div>
-      )}
-
-      <Suspense fallback={<BlogGridSkeleton />}>
-        {blogs.length === 0 ? (
-          <div className="text-center py-20 bg-muted/20 rounded-2xl border-2 border-dashed border-muted">
-            <h3 className="text-2xl font-semibold mb-2">No blogs found</h3>
-            <p className="text-muted-foreground">Try adjusting your filters or search query.</p>
+      <section className="max-w-6xl mx-auto mt-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl font-bold tracking-tight mb-1">Latest Updates</h2>
+            <p className="text-muted-foreground text-sm font-medium">Recently published articles</p>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((blog) => (
-              <BlogCard key={blog.id} blog={blog} />
-            ))}
+          <FilterControls />
+        </div>
+
+        {tag && (
+          <div className="flex items-center gap-3 mb-8 animate-in fade-in slide-in-from-left-4 duration-500">
+            <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Filtered:</span>
+            <Badge className="px-3 py-1 bg-primary text-primary-foreground font-bold text-xs rounded-full">
+              #{tag}
+            </Badge>
+            <Link href="/" className="text-xs text-muted-foreground hover:text-primary transition-all">
+              Clear all
+            </Link>
           </div>
         )}
-      </Suspense>
+
+        <Suspense fallback={<BlogGridSkeleton />}>
+          {blogs.length === 0 ? (
+            <div className="text-center py-32 bg-muted/20 rounded-3xl border border-dashed border-muted/50">
+              <h3 className="text-2xl font-bold mb-2">No blogs found</h3>
+              <p className="text-muted-foreground mb-8">Try adjusting your filters or search query.</p>
+              <Link href="/create" className="inline-flex h-10 px-6 items-center bg-primary text-primary-foreground rounded-full font-bold text-sm">
+                Write something new
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogs.map((blog) => (
+                <BlogCard key={blog.id} blog={blog} />
+              ))}
+            </div>
+          )}
+        </Suspense>
+      </section>
     </div>
   );
 }
 
 function BlogGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="space-y-4 p-4 border rounded-xl animate-pulse">
+        <div key={i} className="space-y-4 p-6 bg-muted/10 rounded-2xl border border-muted/20 animate-pulse">
           <div className="flex gap-3 items-center">
-            <Skeleton className="h-10 w-10 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-3 w-16" />
-            </div>
+            <Skeleton className="h-8 w-8 rounded-full" />
+            <Skeleton className="h-4 w-24" />
           </div>
-          <Skeleton className="h-6 w-3/4" />
+          <Skeleton className="h-8 w-full rounded-lg" />
           <div className="space-y-2">
             <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-2/3" />
-          </div>
-          <div className="flex gap-2">
-            <Skeleton className="h-5 w-12 rounded-full" />
-            <Skeleton className="h-5 w-12 rounded-full" />
           </div>
         </div>
       ))}
