@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import MarkdownRenderer from "@/components/markdown-renderer";
 
 export default async function BlogDetailPage({
   params,
@@ -63,8 +64,8 @@ export default async function BlogDetailPage({
         </div>
       </div>
 
-      <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-black prose-headings:tracking-tight prose-p:leading-relaxed prose-a:text-primary whitespace-pre-wrap selection:bg-primary selection:text-primary-foreground">
-        {blog.content}
+      <div className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-black prose-headings:tracking-tight prose-p:leading-normal prose-a:text-primary whitespace-pre-wrap selection:bg-primary selection:text-primary-foreground">
+        <MarkdownRenderer content={blog.content} />
       </div>
 
       <footer className="mt-20 pt-12 border-t border-muted/30">
