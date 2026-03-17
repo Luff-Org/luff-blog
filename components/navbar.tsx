@@ -10,13 +10,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, User, Loader2, Plus } from "lucide-react";
+import { LogOut, User, Loader2, Plus, Layout } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 
+import { useRouter } from "next/navigation";
+
 export function Navbar() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b bg-background/70 backdrop-blur-xl">
@@ -50,11 +53,19 @@ export function Navbar() {
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 p-1.5 rounded-xl">
-                  <DropdownMenuItem className="rounded-lg cursor-pointer">
-                    <Link href="/dashboard" className="flex items-center w-full font-medium">
-                      <User className="mr-2 h-4 w-4" />
-                      Dashboard
-                    </Link>
+                  <DropdownMenuItem 
+                    className="rounded-lg cursor-pointer flex items-center w-full font-medium"
+                    onClick={() => router.push("/dashboard")}
+                  >
+                    <Layout className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
+                    className="rounded-lg cursor-pointer flex items-center w-full font-medium"
+                    onClick={() => router.push("/settings")}
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    Settings
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="rounded-lg text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer font-medium"
@@ -67,13 +78,12 @@ export function Navbar() {
               </DropdownMenu>
             </div>
           ) : (
-            <Button 
-              size="sm"
-              onClick={() => signIn("google")} 
-              className="rounded-full px-5 font-bold"
+            <Link 
+              href="/login"
+              className={cn(buttonVariants({ size: "sm" }), "rounded-full px-5 font-bold")}
             >
               Get started
-            </Button>
+            </Link>
           )}
         </div>
       </div>

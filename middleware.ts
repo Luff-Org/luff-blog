@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
-  const isProtectedPath = req.nextUrl.pathname.startsWith("/create") || req.nextUrl.pathname.startsWith("/dashboard");
+  const isProtectedPath = req.nextUrl.pathname.startsWith("/create") || req.nextUrl.pathname.startsWith("/dashboard") || req.nextUrl.pathname.startsWith("/settings");
 
   // Redirect to home if accessing protected path without being logged in
   if (isProtectedPath && !isLoggedIn) {
