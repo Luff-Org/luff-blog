@@ -93,11 +93,18 @@ export async function getBlogs({
 }
 
 export async function getBlogById(id: string) {
+  if (!id) {
+    throw new Error("Blog ID is required");
+  }
+
   return await prisma.blog.findUnique({
     where: { id },
     include: {
       author: {
-        select: { name: true, image: true },
+        select: {
+          name: true,
+          image: true,
+        },
       },
       tags: true,
     },
@@ -113,4 +120,68 @@ export async function getUserBlogs() {
     include: { tags: true },
     orderBy: { createdAt: "desc" },
   });
+}
+
+export async function updateBlog(formData: FormData) {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const id = formData.get("id") as string;
+  const title = formData.get("title") as string;
+  const content = formData.get("content") as string;
+  const tagsInput = (formData.get("tags") as string) || "";
+
+  const validatedFields = CreateBlogSchema.safeParse({
+    title,
+    content,
+    tags: tagsInput,
+  });
+
+  if (!validatedFields.success) {
+    return { error: "Invalid fields" };
+  }
+
+  const blog = await prisma.blog.findUnique({
+    where: { id },
+    select: { authorId: true },
+  });
+
+  if (!blog || blog.authorId !== session.user.id) {
+    throw new Error("Unauthorized: Only author can edit this blog");
+  }
+
+  const tags = tagsInput.split(",").map(t => t.trim()).filter(Boolean);
+
+  try {
+    const tagRecords = await Promise.all(
+      tags.map((name) =>
+        prisma.tag.upsert({
+          where: { name },
+          update: {},
+          create: { name },
+        })
+      )
+    );
+
+    await prisma.blog.update({
+      where: { id },
+      data: {
+        title,
+        content,
+        tags: {
+          set: [],
+          connect: tagRecords.map((tag) => ({ id: tag.id })),
+        },
+      },
+    });
+
+    revalidatePath("/");
+    revalidatePath(`/blog/${id}`);
+    revalidatePath("/dashboard");
+
+    return { success: true };
+  } catch (e) {
+    console.error(e);
+    return { error: "Update failed" };
+  }
 }
