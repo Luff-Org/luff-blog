@@ -12,6 +12,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://luff-blog-one.vercel.app"), 
+
   title: "Luff Blog",
   description: "Modern blog platform",
 
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Luff Blog",
     images: [
       {
-        url: "https://luff-blog-one.vercel.app/og-image.png", 
+        url: "/og-image.png",
         width: 1200,
         height: 630,
       },
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Luff Blog",
     description: "Modern blog platform",
-    images: ["https://luff-blog-one.vercel.app/og-image.png"],
+    images: ["/og-image.png"],
   },
 };
 
